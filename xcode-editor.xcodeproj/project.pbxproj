@@ -943,7 +943,7 @@
 				GCC_PREFIX_HEADER = "Source/Main/Resources/XcodeEditorCore-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "XcodeEditorCore-Info.plist";
-				INSTALL_PATH = "@executable_path";
+				INSTALL_PATH = "@executable_path/Dependencies";
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = XcodeEditorCore;
@@ -964,7 +964,7 @@
 				GCC_PREFIX_HEADER = "Source/Main/Resources/XcodeEditorCore-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "XcodeEditorCore-Info.plist";
-				INSTALL_PATH = "@executable_path";
+				INSTALL_PATH = "@executable_path/Dependencies";
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = XcodeEditorCore;
