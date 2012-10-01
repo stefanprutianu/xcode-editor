@@ -23,6 +23,7 @@
 			boxEnum(SourceCodeObjC), @"sourcecode.c.objc",
 			boxEnum(Framework), @"wrapper.framework",
 			boxEnum(PropertyList), @"text.plist.strings",
+			boxEnum(PropertyList), @"text.plist.xml",
 			boxEnum(SourceCodeObjCPlusPlus), @"sourcecode.cpp.objcpp",
             boxEnum(SourceCodeCPlusPlus), @"sourcecode.cpp.cpp",
 			boxEnum(XibFile), @"file.xib",
