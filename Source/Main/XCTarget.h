@@ -12,6 +12,15 @@
 
 #import <Foundation/Foundation.h>
 
+
+typedef enum {
+	XCTargetBuildPhaseCopyBundleResources,
+	XCTargetBuildPhaseLinking,
+	XCTargetBuildPhaseShellScript,
+	XCTargetBuildPhaseSourcesBuild,
+	XCTargetBuildPhaseCopyHeaders
+}XCTargetBuildPhase;
+
 @class XCProject;
 @class XCSourceFile;
 @class XCBuildConfigurationList;
@@ -56,6 +65,15 @@
 - (void) removeMembersWithKeys:(NSArray*)keys;
 
 - (void) addDependency:(NSString*)key;
+
+/*  retrives the key in project raw data used to reference a build phase */
+- (NSString *)keyForBuildPhase:(XCTargetBuildPhase)phase;
+
+/* retrieves the PBXBuildFile entry in project raw data where fileRef is equal with the given one  */
+- (NSString *)keyForBuildFileInPhase:(XCTargetBuildPhase)phase fileReference:(NSString*)fileRef;
+
+/* similar with the above but it figures out the phase by looking at file type */
+- (NSString*)keyForBuildPhaseFileReferenceForFile:(XCSourceFile*)file;
 
 @end
 

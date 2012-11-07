@@ -230,4 +230,90 @@
 }
 
 
+- (NSString *)keyForBuildPhase:(XCTargetBuildPhase)phase
+{
+	NSString *phaseISA = @"";
+	
+	switch (phase) {
+		case XCTargetBuildPhaseCopyBundleResources:
+			phaseISA = @"PBXResourcesBuildPhase";
+			break;
+		case XCTargetBuildPhaseLinking:
+			phaseISA = @"PBXFrameworksBuildPhase";
+			break;
+		case XCTargetBuildPhaseShellScript:
+			phaseISA = @"PBXShellScriptBuildPhase";
+			break;
+		case XCTargetBuildPhaseSourcesBuild:
+			phaseISA = @"PBXSourcesBuildPhase";
+			break;
+		case XCTargetBuildPhaseCopyHeaders:
+			phaseISA = @"PBXHeadersBuildPhase";
+			break;
+		default:
+			break;
+	}
+	
+	NSArray *phasesIDs = [[_project.objects objectForKey:self.key] objectForKey:@"buildPhases"];
+	
+	NSString *phaseKey = nil;
+	
+	for (NSString *aPhaseID in phasesIDs) {
+		NSDictionary *aPhaseRawData = [_project.objects objectForKey:aPhaseID];
+		if ([phaseISA isEqualToString:[aPhaseRawData objectForKey:@"isa"]]) {
+			phaseKey = aPhaseID;
+			break;
+		}
+	}
+	
+	return phaseKey;
+}
+
+- (NSString *)keyForBuildFileInPhase:(XCTargetBuildPhase)phase fileReference:(NSString*)fileRef
+{
+	NSDictionary *buildPhaseEntry = [_project.objects objectForKey:[self keyForBuildPhase:phase]];
+	if (nil == buildPhaseEntry) {
+		NSLog(@"Could not find build phase in project");
+		return nil;
+	}
+	
+	NSString *buildFileRefKey = nil;
+		
+	for (NSString *buildFileRef in [buildPhaseEntry objectForKey:@"files"]) {
+		NSDictionary *aBuildFileRefData = [_project.objects objectForKey:buildFileRef];
+		
+		if ([[aBuildFileRefData objectForKey:@"fileRef"] isEqualToString:fileRef]) {
+			buildFileRefKey = buildFileRef;
+			break;
+		}
+	}
+	
+	return buildFileRefKey;
+}
+
+- (NSString*)keyForBuildPhaseFileReferenceForFile:(XCSourceFile*)file
+{
+	XCTargetBuildPhase phase = XCTargetBuildPhaseSourcesBuild;
+	
+	switch (file.type) {
+		case ImageResourcePNG : case TEXT : case HTML: case Bundle: case XibFile: case FileTypeNil:
+			phase = XCTargetBuildPhaseCopyBundleResources;
+			break;
+		case Framework : case Archive:
+			phase = XCTargetBuildPhaseLinking;
+			break;
+		case SourceCodeHeader :
+			phase = XCTargetBuildPhaseCopyHeaders;
+			break;
+		case SourceCodeCPlusPlus : case SourceCodeObjC : case SourceCodeObjCPlusPlus :
+			phase = XCTargetBuildPhaseSourcesBuild;
+			break;
+		default:
+			break;
+	}
+	
+	return [self keyForBuildFileInPhase:phase fileReference:file.key];
+}
+
+
 @end
