@@ -28,7 +28,7 @@
             boxEnum(SourceCodeCPlusPlus), @"sourcecode.cpp.cpp",
 			boxEnum(XibFile), @"file.xib",
 			boxEnum(ImageResourcePNG), @"image.png",
-            boxEnum(Bundle), @"wrapper.cfbundle",
+            boxEnum(Bundle), /*@"wrapper.cfbundle"*/ @"wrapper.plug-in" ,
             boxEnum(Archive), @"archive.ar",
             boxEnum(HTML), @"text.html",
             boxEnum(TEXT), @"text",
