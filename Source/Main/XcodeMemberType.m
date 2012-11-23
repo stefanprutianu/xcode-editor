@@ -38,7 +38,7 @@ static NSDictionary * _projectNodeTypesAsStrings;
                                                                                boxEnum(PBXTargetDependency), @"PBXTargetDependency",
                                                                                boxEnum(PBXVariantGroup), @"PBXVariantGroup",
                                                                                boxEnum(XCBuildConfiguration), @"XCBuildConfiguration",
-                                                                               boxEnum(XCConfigurationList), @"XCConfigurationList", nil];
+                                                                               boxEnum(XCConfigurationList), @"XCConfigurationList", boxEnum(XCVersionGroup), @"XCVersionGroup", nil];
    }
    return _projectNodeTypesAsStrings;
 }

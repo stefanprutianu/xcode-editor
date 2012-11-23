@@ -27,7 +27,8 @@ typedef enum {
     PBXTargetDependency,
     PBXVariantGroup,
     XCBuildConfiguration,
-    XCConfigurationList
+    XCConfigurationList,
+	XCVersionGroup
 } XcodeMemberType;
 
 @interface NSString (XcodeMemberType)
