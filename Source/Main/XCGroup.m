@@ -401,7 +401,7 @@
 
     if ([_children containsObject:key]) {
         XcodeMemberType type = [self typeForKey:key];
-        if (type == PBXGroup) {
+        if (type == PBXGroup || type == XCVersionGroup) {
             groupMember = [_project groupWithKey:key];
         }
         else if (type == PBXFileReference) {
