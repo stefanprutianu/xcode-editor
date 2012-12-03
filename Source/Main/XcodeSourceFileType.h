@@ -34,4 +34,6 @@ typedef enum {
 
 - (XcodeSourceFileType) asSourceFileType;
 
+- (XcodeSourceFileType) asSourceFileTypeByExtension;
+
 @end

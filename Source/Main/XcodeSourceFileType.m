@@ -36,6 +36,21 @@
 			nil];
 }
 
++ (NSDictionary*) extensionsMapping {
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+            boxEnum(SourceCodeHeader), @"h",
+			boxEnum(SourceCodeObjC), @"m",
+			boxEnum(SourceCodeObjCPlusPlus), @"mm",
+            boxEnum(SourceCodeCPlusPlus), @"cpp",
+			boxEnum(XibFile), @"xib",
+			boxEnum(ImageResourcePNG), @"png",
+			boxEnum(ImageResourcePNG), @"jpg",
+            boxEnum(HTML), @"html",
+			nil];
+}
+
+
+
 @end
 
 @implementation NSString (XcodeFileType)
@@ -47,6 +62,18 @@
 
 - (XcodeSourceFileType) asSourceFileType {
     NSDictionary* typeStrings = [NSDictionary dictionaryWithFileReferenceTypesAsStrings];
+    
+    if ([typeStrings objectForKey:self]) {
+        return (XcodeSourceFileType) [[typeStrings objectForKey:self] intValue];
+    }
+    else {
+        return FileTypeNil;
+    }
+}
+
+- (XcodeSourceFileType) asSourceFileTypeByExtension
+{
+	NSDictionary* typeStrings = [NSDictionary extensionsMapping];
     
     if ([typeStrings objectForKey:self]) {
         return (XcodeSourceFileType) [[typeStrings objectForKey:self] intValue];
