@@ -97,7 +97,7 @@
 
 - (XCSourceFile*) fileWithKey:(NSString*)key {
     NSDictionary* obj = [[self objects] valueForKey:key];
-    if (obj && [[obj valueForKey:@"isa"] asMemberType] == PBXFileReference) {
+    if (obj && ([[obj valueForKey:@"isa"] asMemberType] == PBXFileReference || [[obj valueForKey:@"isa"] asMemberType] == PBXReferenceProxy)) {
         XcodeSourceFileType fileType = [[obj valueForKey:@"lastKnownFileType"] asSourceFileType];
 
         NSString* name = [obj valueForKey:@"name"];
@@ -155,8 +155,7 @@
 
     NSMutableArray* results = [[NSMutableArray alloc] init];
     [[_dataStore objectForKey:@"objects"] enumerateKeysAndObjectsUsingBlock:^(NSString* key, NSDictionary* obj, BOOL* stop) {
-
-        if ([[obj valueForKey:@"isa"] asMemberType] == PBXGroup || [[obj valueForKey:@"isa"] asMemberType] == XCVersionGroup) {
+        if ([[obj valueForKey:@"isa"] asMemberType] == PBXGroup || [[obj valueForKeyPath:@"isa"] asMemberType] == PBXVariantGroup || [[obj valueForKey:@"isa"] asMemberType] == XCVersionGroup) {
             [results addObject:[self groupWithKey:key]];
         }
     }];
@@ -195,7 +194,9 @@
         return XCRetainAutorelease(group)
 
     NSDictionary* obj = [[self objects] objectForKey:key];
-    if (obj && ([[obj valueForKey:@"isa"] asMemberType] == PBXGroup || [[obj valueForKey:@"isa"] asMemberType] == XCVersionGroup)) {
+
+    if (obj && ([[obj valueForKey:@"isa"] asMemberType] == PBXGroup || [[obj valueForKey:@"isa"] asMemberType] == PBXVariantGroup) || [[obj valueForKey:@"isa"] asMemberType] == XCVersionGroup)) {
+		
         NSString* name = [obj valueForKey:@"name"];
         NSString* path = [obj valueForKey:@"path"];
         NSArray* children = [obj valueForKey:@"children"];
