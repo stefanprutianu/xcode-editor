@@ -195,7 +195,7 @@
 
     NSDictionary* obj = [[self objects] objectForKey:key];
 
-    if (obj && ([[obj valueForKey:@"isa"] asMemberType] == PBXGroup || [[obj valueForKey:@"isa"] asMemberType] == PBXVariantGroup) || [[obj valueForKey:@"isa"] asMemberType] == XCVersionGroup)) {
+    if (obj && (([[obj valueForKey:@"isa"] asMemberType] == PBXGroup || [[obj valueForKey:@"isa"] asMemberType] == PBXVariantGroup) || [[obj valueForKey:@"isa"] asMemberType] == XCVersionGroup)) {
 		
         NSString* name = [obj valueForKey:@"name"];
         NSString* path = [obj valueForKey:@"path"];
