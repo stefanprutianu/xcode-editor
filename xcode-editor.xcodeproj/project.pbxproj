@@ -682,7 +682,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf \"${SRCROOT}/build/Framework\"\nmkdir -p \"${SRCROOT}/build/Framework\"\n\ncp -r \"${SRCROOT}/build/${CONFIGURATION}/XcodeEditorCore.framework\" \"${SRCROOT}/build/Framework/XcodeEditorCore.framework\"";
+			shellScript = "rm -rf \"${SRCROOT}/build/Framework\"\nmkdir -p \"${SRCROOT}/build/Framework\"\necho \"${CONFIGURATION_BUILD_DIR}\"\nditto \"${CONFIGURATION_BUILD_DIR}/XcodeEditorCore.framework\" \"${SRCROOT}/build/Framework/XcodeEditorCore.framework\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
